@@ -196,7 +196,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.051146}
-  m_LocalScale: {x: 1.1702313, y: 0.01, z: 2.3617432}
+  m_LocalScale: {x: 1.5974828, y: 0.01, z: 2.3617432}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1075439903}
@@ -730,8 +730,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bus [42] -> Tudor \t(2 min)\nTram [9] -> Pod Ros\t(3 min)\nBus [42] ->
-    Tudor\t(4min)\n"
+  m_text: 'Bus [42] -> Tudor     (2 min)
+
+    Tram [9] -> Pod Ros     (3 min)
+
+    Bus
+    [42] -> Tudor     (4min)
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -758,8 +764,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 3.6
+  m_fontSizeBase: 3.6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -768,7 +774,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 1
+  m_characterSpacing: 10
   m_wordSpacing: 1
   m_lineSpacing: 0
   m_lineSpacingMax: 0
