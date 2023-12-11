@@ -4,6 +4,8 @@
 * UI Mockups
 * Vuforia and ARCore working on Android
 * Scaning an image and showing a base panel
+* [11 Dec]: UI Implemented.
+
 
 # Road-Map Next Week
 * Using HttpRequest to fill the panel
