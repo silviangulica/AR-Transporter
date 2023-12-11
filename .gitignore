@@ -2,7 +2,9 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-
+.DS_Store
+.vscode
+.vsconfig
 com.ptc.vuforia.engine-10.19.3.tgz
 /[Ll]ibrary/
 /[Tt]emp/
