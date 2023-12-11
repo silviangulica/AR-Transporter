@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
   <Tracking>
-    <ImageTarget name="capodopera" size="1.000000 0.929245" />
-    <ImageTarget name="saveimageasaass" size="1.000000 1.333333" />
+    <ImageTarget name="ar_marker" size="1.000000 1.000000" />
   </Tracking>
 </QCARConfig>
