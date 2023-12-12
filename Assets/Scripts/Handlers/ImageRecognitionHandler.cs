@@ -12,6 +12,7 @@ public class ImageRecognitionHandler : MonoBehaviour
     public APIManager apiManager;
     public LocationService locationService;
     public GameObject arPanelTarget;
+    public TextMeshPro arPanelText;
 
     public int callCount = 0;
 
@@ -27,21 +28,21 @@ public class ImageRecognitionHandler : MonoBehaviour
 
     public void OnImageRecognized()
     {
-        
+
         Vector2 currentLocation = locationService.GetLocation();
-       /*Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);*/
-       /* Vector2 currentLocation  = new Vector2(47.19052f,
-            27.55848f);
-        // e pt testing doar:
-        if (callCount % 2 == 0)
-        {
-            currentLocation = new Vector2(47.19052f,
-                27.55848f);
-        }
-        else
-        {
-            currentLocation = new Vector2(47.166740f, 27.570924f);
-        }*/
+        /*Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);*/
+        /* Vector2 currentLocation  = new Vector2(47.19052f,
+             27.55848f);
+         // e pt testing doar:
+         if (callCount % 2 == 0)
+         {
+             currentLocation = new Vector2(47.19052f,
+                 27.55848f);
+         }
+         else
+         {
+             currentLocation = new Vector2(47.166740f, 27.570924f);
+         }*/
 
         callCount++;
         float distance = LocationService.CalculateHaversineDistance(previousLocation, currentLocation);
@@ -57,8 +58,7 @@ public class ImageRecognitionHandler : MonoBehaviour
             {
                 // get buses for the nearest stop + update the arPanel
                 Debug.Log(nearestStop);
-                var children = arPanelTarget.GetComponentsInChildren<TextMeshPro>();
-                children[1].text = nearestStop.stop_name;
+                arPanelText.text = nearestStop.stop_name;
                 arPanelTarget.SetActive(true); // Show the AR panel
             }
             else
