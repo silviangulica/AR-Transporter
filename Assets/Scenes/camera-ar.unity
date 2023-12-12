@@ -2333,6 +2333,7 @@ MonoBehaviour:
   apiManager: {fileID: 676370117}
   locationService: {fileID: 278468318}
   arPanelTarget: {fileID: 527419672}
+  arPanelText: {fileID: 968909050}
   callCount: 0
 --- !u!4 &1005234681
 Transform:

@@ -3,7 +3,9 @@
 # Progress
 ## Week 11 
 * UI Implemented
-* Panel Adjustment
+* Panel Adjustment + New Panel Style
+* RealTime Station Scanning + Text Updating
+* RealTime Time updating
 
 
 ## Mid-Term
