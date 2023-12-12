@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/mainmenu.unity
     guid: 055c464eda82845c886a5cd8d4806865
   - enabled: 1
-    path: Assets/Scenes/Scena Main.unity
+    path: Assets/Scenes/camera-ar.unity
     guid: 000757e62ac06438ead84528e66f93e8
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 7d00047b8fd1c404aa53098aa12415bd, type: 2}
