@@ -522,7 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178082775}
   m_Layer: 0
-  m_Name: Ruta (4)
+  m_Name: ruta_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,6 +2334,11 @@ MonoBehaviour:
   locationService: {fileID: 278468318}
   arPanelTarget: {fileID: 527419672}
   arPanelText: {fileID: 968909050}
+  routesObjects:
+  - {fileID: 1933698944}
+  - {fileID: 1625897129}
+  - {fileID: 1457515415}
+  - {fileID: 178082774}
   callCount: 0
 --- !u!4 &1005234681
 Transform:
@@ -3013,7 +3018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1457515416}
   m_Layer: 0
-  m_Name: Ruta (3)
+  m_Name: ruta_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3415,7 +3420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1625897130}
   m_Layer: 0
-  m_Name: Ruta (2)
+  m_Name: ruta_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3866,7 +3871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1933698945}
   m_Layer: 0
-  m_Name: Ruta (1)
+  m_Name: ruta_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
