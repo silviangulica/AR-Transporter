@@ -2,6 +2,11 @@
 
 # Progress
 
+## Week 13
+
+- Tram Modeling
+- Bus and Tram Animations
+
 ## Week 12
 
 - Calculating the next 5 routes to US
