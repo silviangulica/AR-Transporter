@@ -31,7 +31,6 @@ public class ImageRecognitionHandler : MonoBehaviour
     {
         StartCoroutine(locationService.StartLocationService());
         previousLocation = Vector2.zero;
-
     }
 
     void Update()
@@ -42,9 +41,9 @@ public class ImageRecognitionHandler : MonoBehaviour
     public void OnImageRecognized()
     {
 
-        Vector2 currentLocation = locationService.GetLocation();
+        //Vector2 currentLocation = locationService.GetLocation();
         //Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);
-        //Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
+        Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
         // e pt testing doar:
         // if (callCount % 2 == 0)
         // {
@@ -67,14 +66,14 @@ public class ImageRecognitionHandler : MonoBehaviour
             Stop nearestStop = apiManager.FindNearestStop(currentLocation);
             stopTimes = apiManager.GetStopTimesForStop(nearestStop);
 
-            vehicles = GetVehicles(stopTimes);
+            vehicles = apiManager.GetVehicles(stopTimes);
             //Debug.Log("Vehicles: " + vehicles.Count);
 
 
-            routes = GetRoutes(vehicles);
+            routes = apiManager.GetRoutes(vehicles);
             //Debug.Log("Routes: " + routes.Count);
 
-            SortVehicles(nearestStop);
+            apiManager.SortVehicles(vehicles, nearestStop);
 
             if (nearestStop != null)
             {
@@ -103,41 +102,14 @@ public class ImageRecognitionHandler : MonoBehaviour
             }
         }
     }
-
-    private List<Vehicle> GetVehicles(StopTime[] stopTimes)
-    {
-        List<Vehicle> getVehicles = new List<Vehicle>();
-        foreach (StopTime stopTime in stopTimes)
-        {
-            Vehicle vehicle = apiManager.GetVehicleByTripID($"{stopTime.trip_id}");
-            if (vehicle != null)
-            {
-                getVehicles.Add(vehicle);
-            }
-        }
-        return getVehicles;
-    }
-
-    private List<Route> GetRoutes(List<Vehicle> vehicles)
-    {
-        List<Route> routes = new List<Route>();
-        foreach (Vehicle vehicle in vehicles)
-        {
-            Route route = apiManager.GetRouteByID(vehicle.route_id);
-            if (route != null)
-            {
-                routes.Add(route);
-            }
-        }
-        return routes;
-    }
+    
 
     private void SortVehicles(Stop nearestStop)
     {
         vehicles.Sort((x, y) =>
             {
-                var temp_dist = Vector2.Distance(new Vector2((float)x.latitude, (float)x.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon));
-                var dist = temp_dist.CompareTo(Vector2.Distance(new Vector2((float)y.latitude, (float)y.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon)));
+                var tempDist = Vector2.Distance(new Vector2((float)x.latitude, (float)x.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon));
+                var dist = tempDist.CompareTo(Vector2.Distance(new Vector2((float)y.latitude, (float)y.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon)));
                 return dist;
             }
         );
