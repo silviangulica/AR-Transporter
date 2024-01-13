@@ -106,16 +106,16 @@ public class ImageRecognitionHandler : MonoBehaviour
 
     private List<Vehicle> GetVehicles(StopTime[] stopTimes)
     {
-        List<Vehicle> vehicles = new List<Vehicle>();
+        List<Vehicle> getVehicles = new List<Vehicle>();
         foreach (StopTime stopTime in stopTimes)
         {
-            Vehicle vehicle = apiManager.GetVehicleByTripID(string.Format("{0}", stopTime.trip_id));
+            Vehicle vehicle = apiManager.GetVehicleByTripID($"{stopTime.trip_id}");
             if (vehicle != null)
             {
-                vehicles.Add(vehicle);
+                getVehicles.Add(vehicle);
             }
         }
-        return vehicles;
+        return getVehicles;
     }
 
     private List<Route> GetRoutes(List<Vehicle> vehicles)
