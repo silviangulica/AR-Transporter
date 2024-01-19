@@ -6,27 +6,31 @@ namespace Services
 {
     public class PanelService : MonoBehaviour
     {
-        private APIManager _apiManager;
         public GameObject objectToDuplicate;
+        public Transform contentTransform; 
+        
+        private APIManager _apiManager;
         
         private List<Vehicle> _currentStationVehicles;
         private Stop _currentStationStop;
         private List<Route> _currentStationRoutes;
 
-        void Start()
+        private void Start()
         {
             _apiManager = APIManager.Instance;
             _currentStationStop = _apiManager.lastStop;
             _currentStationVehicles = _apiManager.lastSortedVehicles;
             _currentStationRoutes = _apiManager.lastSortedRoutes;
-
+            var initObjDublicate = objectToDuplicate;
+            contentTransform.position = contentTransform.position + new Vector3(-200, 0, 0);
             foreach (var vehicle in _currentStationVehicles)
             {
-                var newObject = Instantiate(objectToDuplicate, transform);
-                var text = newObject.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
-                
-                text.text = $"{_currentStationRoutes.Find(x => x.route_id == vehicle.route_id).route_short_name} - {vehicle.label}";
+                var newObject = Instantiate(objectToDuplicate, contentTransform);
+                objectToDuplicate = newObject;
             }
+
+            initObjDublicate.SetActive(false);
+
         }
     }
 }

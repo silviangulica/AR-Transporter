@@ -41,9 +41,13 @@ public class ImageRecognitionHandler : MonoBehaviour
     public void OnImageRecognized()
     {
 
-        //Vector2 currentLocation = locationService.GetLocation();
-        //Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);
+        // Statia de la Universitate
         Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
+        
+        //Vector2 currentLocation = locationService.GetLocation();
+        // Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);
+        //Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
+        
         // e pt testing doar:
         // if (callCount % 2 == 0)
         // {
