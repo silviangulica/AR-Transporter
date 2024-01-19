@@ -27,6 +27,8 @@ public class ImageRecognitionHandler : MonoBehaviour
 
     private Vector2 previousLocation;
 
+    private const float AverageSpeedKmH = 30.0f;
+
     void Start()
     {
         StartCoroutine(locationService.StartLocationService());
@@ -43,11 +45,11 @@ public class ImageRecognitionHandler : MonoBehaviour
 
         // Statia de la Universitate
         Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
-        
+
         //Vector2 currentLocation = locationService.GetLocation();
         // Vector2 currentLocation = new Vector2(47.180870f, 27.572713f);
         //Vector2 currentLocation = new Vector2(47.19052f, 27.55848f);
-        
+
         // e pt testing doar:
         // if (callCount % 2 == 0)
         // {
@@ -93,8 +95,28 @@ public class ImageRecognitionHandler : MonoBehaviour
 
                 for (var i = 0; i < Math.Min(vehicles.Count, 4); i++)
                 {
+
+
+                    float distanceToStop = LocationService.CalculateHaversineDistance(new Vector2((float)vehicles[i].latitude, (float)vehicles[i].longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon));
                     var textMeshPro = routesObjects[i].transform.GetChild(1).GetComponent<TextMeshPro>();
-                    textMeshPro.text = $"{routes.Find(e => e.route_id == vehicles[i].route_id).route_short_name}";
+                    var minutesUntilArrival = routesObjects[i].transform.GetChild(2).GetComponent<TextMeshPro>();
+                    var searchedRoute = routes.Find(e => e.route_id == vehicles[i].route_id);
+                    float timeToArrival = distanceToStop / AverageSpeedKmH * 60;
+
+                    if ((int)searchedRoute.route_type == (int)Vehicle.VehicleType.Tram)
+                    {
+                        textMeshPro.text = "Tram ";
+                    }
+                    else
+                    {
+                        textMeshPro.text = "Bus ";
+                    }
+                    textMeshPro.text += $"{searchedRoute.route_short_name}";
+
+                    minutesUntilArrival.text = $"{(int)timeToArrival} min";
+
+
+
                     routesObjects[i].SetActive(true);
                 }
 
@@ -106,7 +128,7 @@ public class ImageRecognitionHandler : MonoBehaviour
             }
         }
     }
-    
+
 
     private void SortVehicles(Stop nearestStop)
     {

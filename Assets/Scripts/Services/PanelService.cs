@@ -7,10 +7,10 @@ namespace Services
     public class PanelService : MonoBehaviour
     {
         public GameObject objectToDuplicate;
-        public Transform contentTransform; 
-        
+        public Transform contentTransform;
+
         private APIManager _apiManager;
-        
+
         private List<Vehicle> _currentStationVehicles;
         private Stop _currentStationStop;
         private List<Route> _currentStationRoutes;
@@ -27,15 +27,17 @@ namespace Services
                 var newObject = Instantiate(objectToDuplicate, contentTransform);
                 objectToDuplicate = newObject;
                 var text = newObject.GetComponentInChildren<TextMeshProUGUI>();
-                text.text = vehicle.route_id + " ";
                 if (vehicle.vehicle_type == Vehicle.VehicleType.Tram)
                 {
-                    text.text += "Tram";
+                    text.text = "Tram ";
                 }
                 else
                 {
-                    text.text += "Bus";
+                    text.text = "Bus ";
                 }
+                text.text += vehicle.route_id;
+
+
             }
 
             initObjDublicate.SetActive(false);
