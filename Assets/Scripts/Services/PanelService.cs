@@ -22,11 +22,20 @@ namespace Services
             _currentStationVehicles = _apiManager.lastSortedVehicles;
             _currentStationRoutes = _apiManager.lastSortedRoutes;
             var initObjDublicate = objectToDuplicate;
-            contentTransform.position = contentTransform.position + new Vector3(-200, 0, 0);
             foreach (var vehicle in _currentStationVehicles)
             {
                 var newObject = Instantiate(objectToDuplicate, contentTransform);
                 objectToDuplicate = newObject;
+                var text = newObject.GetComponentInChildren<TextMeshProUGUI>();
+                text.text = vehicle.route_id + " ";
+                if (vehicle.vehicle_type == Vehicle.VehicleType.Tram)
+                {
+                    text.text += "Tram";
+                }
+                else
+                {
+                    text.text += "Bus";
+                }
             }
 
             initObjDublicate.SetActive(false);
