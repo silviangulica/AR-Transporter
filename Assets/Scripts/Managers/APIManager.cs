@@ -17,10 +17,11 @@ public class APIManager : MonoBehaviour
 
     private Trip[] trips;
     private StopTime[] stopTimes;
-    
+
     public Stop lastStop;
     public List<Vehicle> lastSortedVehicles;
     public List<Route> lastSortedRoutes;
+    public Vehicle currentVehicle;
 
 
     void Start()
@@ -220,7 +221,7 @@ public class APIManager : MonoBehaviour
         }
         return null;
     }
-    
+
     public List<Vehicle> GetVehicles(StopTime[] stopTimes)
     {
         List<Vehicle> getVehicles = new List<Vehicle>();
@@ -234,7 +235,7 @@ public class APIManager : MonoBehaviour
         }
         return getVehicles;
     }
-    
+
     public List<Route> GetRoutes(List<Vehicle> vehicles)
     {
         List<Route> routes = new List<Route>();
@@ -249,7 +250,7 @@ public class APIManager : MonoBehaviour
         lastSortedRoutes = routes;
         return routes;
     }
-    
+
     public void SortVehicles(List<Vehicle> vehs, Stop nearestStop)
     {
         lastStop = nearestStop;
