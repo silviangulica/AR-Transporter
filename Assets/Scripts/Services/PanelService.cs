@@ -15,18 +15,24 @@ namespace Services
         private APIManager _apiManager;
 
         private List<Vehicle> _currentStationVehicles;
-        private Stop _currentStationStop;
+        private List<Route> _lastSortedRoutes;
         private List<Route> _currentStationRoutes;
 
         private void Start()
         {
-            _apiManager = APIManager.Instance;
-            _currentStationStop = _apiManager.lastStop;
-            _currentStationVehicles = _apiManager.lastSortedVehicles;
-            _currentStationRoutes = _apiManager.lastSortedRoutes;
             TextMeshProUGUI text;
+            _apiManager = APIManager.Instance;
+            _currentStationVehicles = _apiManager.lastSortedVehicles;
+            _lastSortedRoutes = _apiManager.lastSortedRoutes;
+
+            for (int i = 0; i < _currentStationVehicles.Count; i++)
+            {
+                Debug.Log(_currentStationVehicles[i]);
+            }
+
             foreach (var vehicle in _currentStationVehicles)
             {
+                Debug.Log(vehicle);
                 if (vehicle.vehicle_type == Vehicle.VehicleType.Tram)
                 {
                     var newObject = Instantiate(objectTramToDuplicate, contentTransform);
@@ -42,7 +48,10 @@ namespace Services
                     newObject.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(vehicle));
                     text.text = "Bus ";
                 }
-                text.text += vehicle.route_id;
+
+
+                var searchedRoute = _lastSortedRoutes.Find(route => route.route_id == vehicle.route_id);
+                text.text += searchedRoute.route_short_name;
             }
 
             objectBusToDuplicate.SetActive(false);

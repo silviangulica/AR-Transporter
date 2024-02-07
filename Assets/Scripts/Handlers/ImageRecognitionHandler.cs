@@ -33,6 +33,7 @@ public class ImageRecognitionHandler : MonoBehaviour
     {
         StartCoroutine(locationService.StartLocationService());
         previousLocation = Vector2.zero;
+        apiManager = APIManager.Instance;
     }
 
     void Update()
@@ -75,12 +76,16 @@ public class ImageRecognitionHandler : MonoBehaviour
             vehicles = apiManager.GetVehicles(stopTimes);
             //Debug.Log("Vehicles: " + vehicles.Count);
 
-
             routes = apiManager.GetRoutes(vehicles);
             //Debug.Log("Routes: " + routes.Count);
 
             apiManager.SortVehicles(vehicles, nearestStop);
-
+            // Debug.Log("STAAAAART");
+            // foreach (var vehicle in apiManager.lastSortedVehicles)
+            // {
+            //     Debug.Log(vehicle);
+            // }
+            // Debug.Log("END");
             if (nearestStop != null)
             {
                 Debug.Log(nearestStop);
@@ -95,12 +100,11 @@ public class ImageRecognitionHandler : MonoBehaviour
 
                 for (var i = 0; i < Math.Min(vehicles.Count, 4); i++)
                 {
-
-
                     float distanceToStop = LocationService.CalculateHaversineDistance(new Vector2((float)vehicles[i].latitude, (float)vehicles[i].longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon));
                     var textMeshPro = routesObjects[i].transform.GetChild(1).GetComponent<TextMeshPro>();
                     var minutesUntilArrival = routesObjects[i].transform.GetChild(2).GetComponent<TextMeshPro>();
                     var searchedRoute = routes.Find(e => e.route_id == vehicles[i].route_id);
+
                     float timeToArrival = distanceToStop / AverageSpeedKmH * 60;
 
                     if ((int)searchedRoute.route_type == (int)Vehicle.VehicleType.Tram)
@@ -128,19 +132,6 @@ public class ImageRecognitionHandler : MonoBehaviour
             }
         }
     }
-
-
-    private void SortVehicles(Stop nearestStop)
-    {
-        vehicles.Sort((x, y) =>
-            {
-                var tempDist = Vector2.Distance(new Vector2((float)x.latitude, (float)x.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon));
-                var dist = tempDist.CompareTo(Vector2.Distance(new Vector2((float)y.latitude, (float)y.longitude), new Vector2((float)nearestStop.stop_lat, (float)nearestStop.stop_lon)));
-                return dist;
-            }
-        );
-    }
-
 }
 
 

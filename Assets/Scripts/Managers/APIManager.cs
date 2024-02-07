@@ -71,7 +71,7 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    IEnumerator GetVehicles()
+    public IEnumerator GetVehicles()
     {
         string url = "https://api.tranzy.dev/v1/opendata/vehicles";
         UnityWebRequest request = UnityWebRequest.Get(url);
@@ -203,6 +203,18 @@ public class APIManager : MonoBehaviour
         foreach (Vehicle vehicle in vehicles)
         {
             if (vehicle.trip_id == tripID)
+            {
+                return vehicle;
+            }
+        }
+        return null;
+    }
+
+    public Vehicle GetVehicleByID(int vehicleID)
+    {
+        foreach (Vehicle vehicle in vehicles)
+        {
+            if (vehicle.id == vehicleID)
             {
                 return vehicle;
             }

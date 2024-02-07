@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Mapbox : MonoBehaviour
 {
+    private APIManager _apiManager;
     public string accessToken;
     public float centerLatitude = -34.615662f;
     public float centerLongitude = -58.503338f;
@@ -55,9 +58,12 @@ public class Mapbox : MonoBehaviour
     private RawImage _rawImage;
 
 
-    private
-        void Start()
+
+    void Start()
     {
+        _apiManager = APIManager.Instance;
+        centerLatitude = (float)_apiManager.currentVehicle.latitude;
+        centerLongitude = (float)_apiManager.currentVehicle.longitude;
         _rawImage = gameObject.GetComponent<RawImage>();
         StartCoroutine(GetMapbox());
         rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
@@ -66,19 +72,38 @@ public class Mapbox : MonoBehaviour
     }
 
     // Update is called once per frame
+    // 10 sec
+    private float _counter = 1;
     void Update()
     {
-        if (!updateMap || (accessTokenLast == accessToken && Mathf.Approximately(centerLatitudeLast, centerLatitude)
-                                                          && Mathf.Approximately(centerLongitudeLast,
-                                                              centerLongitude) && Mathf.Approximately(zoomLast, zoom)
-                                                          && bearingLast == bearing && pitchLast == pitch &&
-                                                          mapStyleLast == mapStyle &&
-                                                          mapResolutionLast == mapResolution)) return;
-        rect = _rawImage.rectTransform.rect;
-        mapWidth = (int)Math.Round(rect.width);
-        mapHeight = (int)Math.Round(rect.height);
-        StartCoroutine(GetMapbox());
-        updateMap = false;
+        if (_counter > 0)
+        {
+            _counter -= Time.deltaTime;
+        }
+        else
+        {
+            StartCoroutine(_apiManager.GetVehicles());
+            _apiManager.currentVehicle = _apiManager.GetVehicleByID(_apiManager.currentVehicle.id);
+            _counter = 5;
+            if (_apiManager.currentVehicle != null)
+            {
+                centerLatitude = (float)_apiManager.currentVehicle.latitude;
+                centerLongitude = (float)_apiManager.currentVehicle.longitude;
+                updateMap = true;
+            }
+            if (!updateMap || (accessTokenLast == accessToken && Mathf.Approximately(centerLatitudeLast, centerLatitude)
+                                                              && Mathf.Approximately(centerLongitudeLast,
+                                                                  centerLongitude) && Mathf.Approximately(zoomLast, zoom)
+                                                              && bearingLast == bearing && pitchLast == pitch &&
+                                                              mapStyleLast == mapStyle &&
+                                                              mapResolutionLast == mapResolution)) return;
+            rect = _rawImage.rectTransform.rect;
+            mapWidth = (int)Math.Round(rect.width);
+            mapHeight = (int)Math.Round(rect.height);
+            StartCoroutine(GetMapbox());
+            updateMap = false;
+
+        }
     }
 
     IEnumerator GetMapbox()
